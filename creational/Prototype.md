@@ -16,55 +16,80 @@ In short, it allows you to create a copy of an existing object and modify it to 
 
 **Programmatic Example**
 
-In PHP, it can be easily done using `clone`
+In Java, it can be easily done using `Clonable`
 
 ```php
-class Sheep
+package com.prady00.dp.creational.prototype;
+class Sheep implements Cloneable
 {
-    protected $name;
-    protected $category;
+    protected String name;
+    protected String category;
 
-    public function __construct(string $name, string $category = 'Mountain Sheep')
+    public Sheep(String name, String category)
     {
-        $this->name = $name;
-        $this->category = $category;
+        this.name = name;
+        this.category = category;
     }
 
-    public function setName(string $name)
+    public void setName(String name)
     {
-        $this->name = $name;
+        this.name = name;
     }
 
-    public function getName()
+    public String getName()
     {
-        return $this->name;
+        return this.name;
     }
 
-    public function setCategory(string $category)
+    public void setCategory(String category)
     {
-        $this->category = $category;
+        this.category = category;
     }
 
-    public function getCategory()
+    public String getCategory()
     {
-        return $this->category;
+        return this.category;
     }
+    
+    @Override
+	public Object clone() throws CloneNotSupportedException{
+			return new Sheep(this.name, this.category);
+	}
+
+	@Override
+	public String toString() {
+		return "Sheep [name=" + name + ", category=" + category + "]";
+	}
+    
 }
 ```
 Then it can be cloned like below
-```php
-$original = new Sheep('Jolly');
-echo $original->getName(); // Jolly
-echo $original->getCategory(); // Mountain Sheep
+```java
+package com.prady00.dp.creational.prototype;
 
-// Clone and modify what is required
-$cloned = clone $original;
-$cloned->setName('Dolly');
-echo $cloned->getName(); // Dolly
-echo $cloned->getCategory(); // Mountain sheep
+public class PrototypeRunner {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Sheep originalSheep = new Sheep("Dolly", "Mountain");
+		
+		Sheep clonedSheep = null; 
+		
+		try {
+			clonedSheep = (Sheep) originalSheep.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(originalSheep);
+		System.out.println(clonedSheep);
+
+	}
+
+}
 ```
-
-Also you could use the magic method `__clone` to modify the cloning behavior.
 
 **When to use?**
 

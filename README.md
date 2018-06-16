@@ -1,4 +1,4 @@
-Design Patterns for all
+Design Patterns for all (Design Patterns for Humans - Java)
 ============
 
 * Inspired by - [Design Patterns for humans](https://github.com/kamranahmedse/design-patterns-for-humans) 
@@ -70,5 +70,3 @@ It is concerned with assignment of responsibilities between the objects. What ma
 * [Template Method]
 
 ### Want to edit this? - Contributions are welcome ###
-
-You can see the contribution guidelines over [here](https://github.com/prady00/design-patterns-for-all/blob/master/README.md)

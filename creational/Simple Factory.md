@@ -13,50 +13,62 @@ Wikipedia says
 **Programmatic Example**
 
 First of all we have a door interface and the implementation
-```php
+```java
+package com.prady00.dp.creational.simpleFactory;
 interface Door
 {
-    public function getWidth(): float;
-    public function getHeight(): float;
+    public float getWidth();
+    public float getHeight();
 }
+```
 
+```java
+package com.prady00.dp.creational.simpleFactory;
 class WoodenDoor implements Door
 {
-    protected $width;
-    protected $height;
+    protected float width;
+    protected float height;
 
-    public function __construct(float $width, float $height)
+    public WoodenDoor(float width, float height)
     {
-        $this->width = $width;
-        $this->height = $height;
+        this.width = width;
+        this.height = height;
     }
 
-    public function getWidth(): float
+    public float getWidth()
     {
-        return $this->width;
+        return this.width;
     }
 
-    public function getHeight(): float
+    public float getHeight()
     {
-        return $this->height;
+        return this.height;
     }
 }
 ```
 Then we have our door factory that makes the door and returns it
-```php
+```java
+package com.prady00.dp.creational.simpleFactory;
 class DoorFactory
 {
-    public static function makeDoor($width, $height): Door
+    public static Door makeDoor(float width, float height)
     {
-        return new WoodenDoor($width, $height);
+        return new WoodenDoor(width, height);
     }
 }
 ```
 And then it can be used as
-```php
-$door = DoorFactory::makeDoor(100, 200);
-echo 'Width: ' . $door->getWidth();
-echo 'Height: ' . $door->getHeight();
+```java
+package com.prady00.dp.creational.simpleFactory;
+
+public class SimpleFactoryRunner {
+
+	public static void main(String[] args) {
+		Door door = DoorFactory.makeDoor(100, 200);
+	}
+
+}
+
 ```
 
 **When to Use?**
