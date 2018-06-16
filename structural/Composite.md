@@ -14,119 +14,142 @@ Wikipedia says
 
 Taking our employees example from above. Here we have different employee types
 
-```php
+```java
+package com.prady00.dp.structural.composite;
+
+import java.math.BigDecimal;
+
 interface Employee
 {
-    public function __construct(string $name, float $salary);
-    public function getName(): string;
-    public function setSalary(float $salary);
-    public function getSalary(): float;
-    public function getRoles(): array;
+    public String getName();
+    public void setSalary(BigDecimal $salary);
+    public BigDecimal getSalary();
+ 
 }
+
+```
+
+```java
+package com.prady00.dp.structural.composite;
+
+import java.math.BigDecimal;
 
 class Developer implements Employee
 {
-    protected $salary;
-    protected $name;
-    protected $roles;
-    
-    public function __construct(string $name, float $salary)
+    protected BigDecimal salary;
+    protected String name;
+   
+    public Developer(String name, BigDecimal salary)
     {
-        $this->name = $name;
-        $this->salary = $salary;
+        this.name = name;
+        this.salary = salary;
     }
 
-    public function getName(): string
+    public String getName()
     {
-        return $this->name;
+        return this.name;
     }
 
-    public function setSalary(float $salary)
+    public void setSalary(BigDecimal salary)
     {
-        $this->salary = $salary;
+        this.salary = salary;
     }
 
-    public function getSalary(): float
+    public BigDecimal getSalary()
     {
-        return $this->salary;
-    }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
+        return this.salary;
     }
 }
 
+```
+
+```java
+package com.prady00.dp.structural.composite;
+
+import java.math.BigDecimal;
+
 class Designer implements Employee
 {
-    protected $salary;
-    protected $name;
-    protected $roles;
+    protected BigDecimal salary;
+    protected String name;
 
-    public function __construct(string $name, float $salary)
+    public Designer(String name, BigDecimal salary)
     {
-        $this->name = $name;
-        $this->salary = $salary;
+        this.name = name;
+        this.salary = salary;
     }
 
-    public function getName(): string
+    public String getName()
     {
-        return $this->name;
+        return this.name;
     }
 
-    public function setSalary(float $salary)
+    public void setSalary(BigDecimal salary)
     {
-        $this->salary = $salary;
+        this.salary = salary;
     }
 
-    public function getSalary(): float
+    public BigDecimal getSalary()
     {
-        return $this->salary;
-    }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
+        return this.salary;
     }
 }
 ```
 
 Then we have an organization which consists of several different types of employees
 
-```php
+```java
+package com.prady00.dp.structural.composite;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 class Organization
 {
-    protected $employees;
+    protected List<Employee> employees = new ArrayList<Employee>();
 
-    public function addEmployee(Employee $employee)
+    public void addEmployee(Employee employee)
     {
-        $this->employees[] = $employee;
+        this.employees.add(employee);
     }
 
-    public function getNetSalaries(): float
+    public BigDecimal getNetSalaries()
     {
-        $netSalary = 0;
+    	BigDecimal netSalary = new BigDecimal(0);
 
-        foreach ($this->employees as $employee) {
-            $netSalary += $employee->getSalary();
+        for(Employee employee: employees) {
+            netSalary = netSalary.add(employee.getSalary());
         }
 
-        return $netSalary;
+        return netSalary;
     }
 }
 ```
 
 And then it can be used as
 
-```php
-// Prepare the employees
-$john = new Developer('John Doe', 12000);
-$jane = new Designer('Jane Doe', 15000);
+```java
+package com.prady00.dp.structural.composite;
 
-// Add them to organization
-$organization = new Organization();
-$organization->addEmployee($john);
-$organization->addEmployee($jane);
+import java.math.BigDecimal;
 
-echo "Net salaries: " . $organization->getNetSalaries(); // Net Salaries: 27000
+public class CompositeRunner {
+
+	public static void main(String[] args) {
+		// Prepare the employees
+		Employee john = new Developer("John Doe", new BigDecimal(12000));
+		Employee jane = new Designer("Jane Doe", new BigDecimal(15000));
+
+		// Add them to organization
+		Organization organization = new Organization();
+		organization.addEmployee(john);
+		organization.addEmployee(jane);
+
+		System.out.println("Net salaries: " + organization.getNetSalaries());  // Net Salaries: 27000
+
+	}
+
+}
+
 ```
