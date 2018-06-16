@@ -14,67 +14,89 @@ Wikipedia says
 
 Translating our tea example from above. First of all we have tea types and tea maker
 
-```php
+```java
+package com.prady00.dp.structural.flyweight;
 // Anything that will be cached is flyweight.
 // Types of tea here will be flyweights.
 class KarakTea
 {
 }
 
+```
+```java
+
+// Acts as a factory and saves the tea
+package com.prady00.dp.structural.flyweight;
+
+import java.util.ArrayList;
+import java.util.List;
+
 // Acts as a factory and saves the tea
 class TeaMaker
 {
-    protected $availableTea = [];
+    protected List<KarakTea> availableTea = new ArrayList<KarakTea>();
 
-    public function make($preference)
+    public void make(String preference)
     {
-        if (empty($this->availableTea[$preference])) {
-            $this->availableTea[$preference] = new KarakTea();
-        }
-
-        return $this->availableTea[$preference];
+        
     }
 }
 ```
 
 Then we have the `TeaShop` which takes orders and serves them
 
-```php
+```java
+package com.prady00.dp.structural.flyweight;
+
+import java.util.ArrayList;
+import java.util.List;
+
 class TeaShop
 {
-    protected $orders;
-    protected $teaMaker;
+    protected List<String> orders = new ArrayList<>();
+    protected TeaMaker teaMaker;
 
-    public function __construct(TeaMaker $teaMaker)
+    public TeaShop(TeaMaker teaMaker)
     {
-        $this->teaMaker = $teaMaker;
+        this.teaMaker = teaMaker;
     }
 
-    public function takeOrder(string $teaType, int $table)
+    public void takeOrder(String teaType, int table)
     {
-        $this->orders[$table] = $this->teaMaker->make($teaType);
+        this.orders.add(teaType + "at table " + table);
     }
 
-    public function serve()
+    public void serve()
     {
-        foreach ($this->orders as $table => $tea) {
-            echo "Serving tea to table# " . $table;
+        boolean String;
+		for (String order : this.orders) {
+            System.out.println(order);
         }
     }
 }
 ```
 And it can be used as below
 
-```php
-$teaMaker = new TeaMaker();
-$shop = new TeaShop($teaMaker);
+```java
+package com.prady00.dp.structural.flyweight;
 
-$shop->takeOrder('less sugar', 1);
-$shop->takeOrder('more milk', 2);
-$shop->takeOrder('without sugar', 5);
+public class FlyweightRunner {
 
-$shop->serve();
-// Serving tea to table# 1
-// Serving tea to table# 2
-// Serving tea to table# 5
+	public static void main(String[] args) {
+		TeaMaker teaMaker = new TeaMaker();
+		TeaShop shop = new TeaShop(teaMaker);
+
+		shop.takeOrder("less sugar", 1);
+		shop.takeOrder("more milk", 2);
+		shop.takeOrder("without sugar", 5);
+
+		shop.serve();
+		// Serving tea to table# 1
+		// Serving tea to table# 2
+		// Serving tea to table# 5
+
+	}
+
+}
+
 ```

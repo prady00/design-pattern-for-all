@@ -14,75 +14,86 @@ Wikipedia says
 
 Taking our computer example from above. Here we have the computer class
 
-```php
+```java
+package com.prady00.dp.structural.facade;
 class Computer
 {
-    public function getElectricShock()
+    public void getElectricShock()
     {
-        echo "Ouch!";
+        System.out.println("Ouch!");
     }
 
-    public function makeSound()
+    public void makeSound()
     {
-        echo "Beep beep!";
+        System.out.println("Beep beep!");
     }
 
-    public function showLoadingScreen()
+    public void showLoadingScreen()
     {
-        echo "Loading..";
+        System.out.println("Loading..");
     }
 
-    public function bam()
+    public void bam()
     {
-        echo "Ready to be used!";
+        System.out.println("Ready to be used!");
     }
 
-    public function closeEverything()
+    public void closeEverything()
     {
-        echo "Bup bup bup buzzzz!";
+        System.out.println("Bup bup bup buzzzz!");
     }
 
-    public function sooth()
+    public void sooth()
     {
-        echo "Zzzzz";
+        System.out.println("Zzzzz");
     }
 
-    public function pullCurrent()
+    public void pullCurrent()
     {
-        echo "Haaah!";
+        System.out.println("Haaah!");
     }
 }
 ```
 Here we have the facade
-```php
+```java
+package com.prady00.dp.structural.facade;
 class ComputerFacade
 {
-    protected $computer;
+    protected Computer computer;
 
-    public function __construct(Computer $computer)
+    public ComputerFacade(Computer computer)
     {
-        $this->computer = $computer;
+        this.computer = computer;
     }
 
-    public function turnOn()
+    public void turnOn()
     {
-        $this->computer->getElectricShock();
-        $this->computer->makeSound();
-        $this->computer->showLoadingScreen();
-        $this->computer->bam();
+        this.computer.getElectricShock();
+        this.computer.makeSound();
+        this.computer.showLoadingScreen();
+        this.computer.bam();
     }
 
-    public function turnOff()
+    public void turnOff()
     {
-        $this->computer->closeEverything();
-        $this->computer->pullCurrent();
-        $this->computer->sooth();
+        this.computer.closeEverything();
+        this.computer.pullCurrent();
+        this.computer.sooth();
     }
 }
 ```
 Now to use the facade
-```php
-$computer = new ComputerFacade(new Computer());
-$computer->turnOn(); // Ouch! Beep beep! Loading.. Ready to be used!
-$computer->turnOff(); // Bup bup buzzz! Haah! Zzzzz
+```java
+package com.prady00.dp.structural.facade;
+
+public class FacadeRunner {
+
+	public static void main(String[] args) {
+		ComputerFacade computer = new ComputerFacade(new Computer());
+		computer.turnOn(); // Ouch! Beep beep! Loading.. Ready to be used!
+		computer.turnOff(); // Bup bup buzzz! Haah! Zzzzz
+
+	}
+
+}
 ```
