@@ -15,105 +15,99 @@ Wikipedia says
 
 Lets take coffee for example. First of all we have a simple coffee implementing the coffee interface
 
-```php
+```java
+package com.prady00.dp.structural.decorator;
 interface Coffee
 {
-    public function getCost();
-    public function getDescription();
+    public int getCost();
+    public String getDescription();
 }
 
+```
+```java
+package com.prady00.dp.structural.decorator;
 class SimpleCoffee implements Coffee
 {
-    public function getCost()
+    public int getCost()
     {
         return 10;
     }
 
-    public function getDescription()
+    public String getDescription()
     {
-        return 'Simple coffee';
+        return "Simple coffee";
     }
 }
 ```
 We want to make the code extensible to allow options to modify it if required. Lets make some add-ons (decorators)
-```php
+```java
+package com.prady00.dp.structural.decorator;
 class MilkCoffee implements Coffee
 {
-    protected $coffee;
+    protected Coffee coffee;
 
-    public function __construct(Coffee $coffee)
+    public MilkCoffee(Coffee coffee)
     {
-        $this->coffee = $coffee;
+        this.coffee = coffee;
     }
 
-    public function getCost()
+    public int getCost()
     {
-        return $this->coffee->getCost() + 2;
+        return this.coffee.getCost() + 2;
     }
 
-    public function getDescription()
+    public String getDescription()
     {
-        return $this->coffee->getDescription() . ', milk';
+        return this.coffee.getDescription() + ", milk";
     }
 }
 
+```
+```java
+package com.prady00.dp.structural.decorator;
 class WhipCoffee implements Coffee
 {
-    protected $coffee;
+    protected Coffee coffee;
 
-    public function __construct(Coffee $coffee)
+    public WhipCoffee(Coffee coffee)
     {
-        $this->coffee = $coffee;
+        this.coffee = coffee;
     }
 
-    public function getCost()
+    public int getCost()
     {
-        return $this->coffee->getCost() + 5;
+        return this.coffee.getCost() + 5;
     }
 
-    public function getDescription()
+    public String getDescription()
     {
-        return $this->coffee->getDescription() . ', whip';
-    }
-}
-
-class VanillaCoffee implements Coffee
-{
-    protected $coffee;
-
-    public function __construct(Coffee $coffee)
-    {
-        $this->coffee = $coffee;
-    }
-
-    public function getCost()
-    {
-        return $this->coffee->getCost() + 3;
-    }
-
-    public function getDescription()
-    {
-        return $this->coffee->getDescription() . ', vanilla';
+        return this.coffee.getDescription() + ", whip";
     }
 }
 ```
 
 Lets make a coffee now
 
-```php
-$someCoffee = new SimpleCoffee();
-echo $someCoffee->getCost(); // 10
-echo $someCoffee->getDescription(); // Simple Coffee
+```java
+package com.prady00.dp.structural.decorator;
 
-$someCoffee = new MilkCoffee($someCoffee);
-echo $someCoffee->getCost(); // 12
-echo $someCoffee->getDescription(); // Simple Coffee, milk
+public class DecoratorRunner {
 
-$someCoffee = new WhipCoffee($someCoffee);
-echo $someCoffee->getCost(); // 17
-echo $someCoffee->getDescription(); // Simple Coffee, milk, whip
+	public static void main(String[] args) {
+		Coffee someCoffee = new SimpleCoffee();
+		System.out.println(someCoffee.getCost()); // 10
+		System.out.println(someCoffee.getDescription()); // Simple Coffee
 
-$someCoffee = new VanillaCoffee($someCoffee);
-echo $someCoffee->getCost(); // 20
-echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
+		someCoffee = new MilkCoffee(someCoffee);
+		System.out.println(someCoffee.getCost()); // 12
+		System.out.println(someCoffee.getDescription()); // Simple Coffee, milk
+
+		someCoffee = new WhipCoffee(someCoffee);
+		System.out.println(someCoffee.getCost()); // 17
+		System.out.println(someCoffee.getDescription()); // Simple Coffee, milk, whip
+	}
+
+}
+
+
 ```
